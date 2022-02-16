@@ -1,13 +1,17 @@
-import tkinter
-import cv2 # pip install opencv-python
-import PIL.Image, PIL.ImageTk # pip install pillow
-from functools import partial
 import threading
 import time
+import tkinter
+from functools import partial
+
+import PIL.Image  # pip install pillow
+import PIL.ImageTk
+import cv2  # pip install opencv-python
 import imutils
 
 stream = cv2.VideoCapture("clip.mp4")
 flag = True
+
+
 def play(speed):
     # print(speed)
     global flag
@@ -24,6 +28,8 @@ def play(speed):
     if flag:
         canvas.create_text(140, 26, fill="blue", font="Times 26 bold", text="... Decision Pending ...")
     flag = not flag
+
+
 def pending(decision):
     # Display decision pending image
     frame = cv2.cvtColor(cv2.imread("pending.jpg"), cv2.COLOR_BGR2RGB)
@@ -59,11 +65,13 @@ def out():
     thread.start()
     print("Player is out")
 
+
 def not_out():
     thread = threading.Thread(target=pending, args=("Not Out",))
     thread.daemon = 1
     thread.start()
     print("Player is not out")
+
 
 def quit_drs():
     exit()
